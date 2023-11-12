@@ -8,8 +8,8 @@ function App() {
   return (
     <BrowserRouter>
       <NoteState>
-        <div>
-          <Navbar />
+        <Navbar />
+        <div className="container">
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/about" element={<About />} />
