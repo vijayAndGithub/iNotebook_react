@@ -3,12 +3,14 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import About from "./components/About";
 import NoteState from "./context/Note/NoteState";
+import Alert from "./components/Alert";
 
 function App() {
   return (
     <BrowserRouter>
       <NoteState>
         <Navbar />
+        <Alert message="Success: Alert message shown!" />
         <div className="container">
           <Routes>
             <Route exact path="/" element={<Home />} />
