@@ -1,10 +1,6 @@
-import { useContext } from "react";
-import noteContext from "../context/note/noteContext";
+import Note from "./Note";
 
 const Home = () => {
-  const notesContext = useContext(noteContext);
-  const { notes, setNotes } = notesContext;
-
   return (
     <div className="container my-3">
       <h2>Add a note</h2>
@@ -20,7 +16,7 @@ const Home = () => {
             aria-describedby="emailHelp"
           />
           <div id="emailHelp" className="form-text">
-            We'll never share your email with anyone else.
+            We&apos;ll never share your email with anyone else.
           </div>
         </div>
         <div className="mb-3">
@@ -48,10 +44,7 @@ const Home = () => {
         </button>
       </form>
       <h2>Your Notes</h2>
-      {notes.length &&
-        notes.map((note) => {
-          return note.title;
-        })}
+      <Note />
     </div>
   );
 };
