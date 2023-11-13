@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import config from "../config/config";
 const { envVars } = config;
 
-const Login = () => {
+const Login = (props) => {
+  const { showAlert } = props;
+
   let navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     email: "",
@@ -12,7 +14,6 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("handle submit");
     const url = `${envVars.apiUrl}/api/v1/auth/login`;
     const loginData = {
       email: credentials.email,
@@ -33,10 +34,11 @@ const Login = () => {
     });
     if (resData.success) {
       //save auth token and redirect
+      showAlert(resData.message, "success");
       localStorage.setItem("access_token", resData.data.authToken);
       navigate("/");
     } else {
-      alert(resData.message);
+      showAlert(resData.message, "danger");
     }
   };
   const onChange = (e) => {

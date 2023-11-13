@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import config from "../config/config";
 const { envVars } = config;
 
-const Signup = () => {
+const Signup = (props) => {
+  const { showAlert } = props;
+
   let navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     name: "",
@@ -14,7 +16,6 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("handle submit");
     const url = `${envVars.apiUrl}/api/v1/auth/createUser`;
     if (credentials.password == credentials.confirmPassword) {
       const signupData = {
@@ -39,13 +40,14 @@ const Signup = () => {
       });
       if (resData.success) {
         //save auth token and redirect
+        showAlert(resData.message, "success");
         localStorage.setItem("access_token", resData.data.authToken);
         navigate("/");
       } else {
-        alert(resData.message);
+        showAlert(resData.message, "danger");
       }
     } else {
-      alert("Password not matched, please enter again");
+      showAlert("Password not matched, please enter again", "danger");
     }
   };
   const onChange = (e) => {
