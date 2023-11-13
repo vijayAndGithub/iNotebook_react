@@ -51,10 +51,10 @@ const NoteState = (props) => {
   };
 
   //2.Edit a note
-  const editNote = async (noteId, note) => {
+  const editNote = async (note) => {
     const authToken =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0OTVlOTAzNjcxYmFmOTUzNTg4N2UzIn0sImlhdCI6MTY5OTgxMTUxMH0.ytqs3_IFLPBp42Ygae6bIpdDQGDGDC8bYvg_mbXFWQ0";
-    const url = `${envVars.apiUrl}/api/v1/notes/${noteId}`;
+    const url = `${envVars.apiUrl}/api/v1/notes/${note._id}`;
     const noteData = {};
     if (note.title) {
       noteData.title = note.title;
@@ -78,13 +78,17 @@ const NoteState = (props) => {
     console.log(resData);
 
     //Client
-    for (const element of notes) {
-      if (element._id === noteId) {
+    const updatedNotes = notes.map((element) => {
+      if (element._id === note._id) {
+        console.log("inside front edit match");
         element.title = note.title;
         element.description = note.description;
         element.tag = note.tag;
       }
-    }
+      return element;
+    });
+
+    setNotes(updatedNotes);
   };
 
   //3.Delete a note

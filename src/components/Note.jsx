@@ -5,9 +5,10 @@ import AddNote from "./AddNote";
 
 const Note = () => {
   const notesContext = useContext(noteContext);
-  const { notes, getAllNotes } = notesContext;
+  const { notes, getAllNotes, editNote } = notesContext;
 
   const [note, setNote] = useState({
+    _id: "",
     etitle: "",
     edescription: "",
     etag: "",
@@ -19,11 +20,13 @@ const Note = () => {
   }, []);
 
   const modalRef = useRef(null);
+  const closeRef = useRef(null);
 
   //fns
   const updateNote = (currentNote) => {
     modalRef.current.click();
     setNote({
+      _id: currentNote._id,
       etitle: currentNote.title,
       edescription: currentNote.description,
       etag: currentNote.tag,
@@ -32,6 +35,13 @@ const Note = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
+    editNote({
+      _id: note._id,
+      title: note.etitle,
+      description: note.edescription,
+      tag: note.etag,
+    });
+    closeRef.current.click();
   };
   const onChange = (e) => {
     setNote({
@@ -117,6 +127,7 @@ const Note = () => {
             </div>
             <div className="modal-footer">
               <button
+                ref={closeRef}
                 type="button"
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
