@@ -83,7 +83,7 @@ const Note = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <form className="my-3">
+              <form className="my-3" onSubmit={handleClick}>
                 <div className="mb-3">
                   <label htmlFor="etitle" className="form-label">
                     Title
@@ -95,6 +95,8 @@ const Note = () => {
                     name="etitle"
                     value={note.etitle}
                     onChange={onChange}
+                    minLength={5}
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -108,6 +110,8 @@ const Note = () => {
                     name="edescription"
                     value={note.edescription}
                     onChange={onChange}
+                    minLength={5}
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -121,31 +125,34 @@ const Note = () => {
                     name="etag"
                     value={note.etag}
                     onChange={onChange}
+                    minLength={5}
+                    required
                   />
                 </div>
+                {/* </form>
+            </div> */}
+                <div className="modal-footer">
+                  <button
+                    ref={closeRef}
+                    type="button"
+                    className="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    disabled={
+                      note.etitle.length < 5 ||
+                      note.edescription.length < 5 ||
+                      note.etag.length < 5
+                    }
+                  >
+                    Update Note
+                  </button>
+                </div>
               </form>
-            </div>
-            <div className="modal-footer">
-              <button
-                ref={closeRef}
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                disabled={
-                  note.etitle.length < 5 ||
-                  note.edescription.length < 5 ||
-                  note.etag.length < 5
-                }
-                onClick={handleClick}
-              >
-                Update Note
-              </button>
             </div>
           </div>
         </div>

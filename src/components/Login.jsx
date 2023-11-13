@@ -61,6 +61,7 @@ const Login = () => {
             value={credentials.email}
             aria-describedby="emailHelp"
             onChange={onChange}
+            required
           />
         </div>
         <div className="mb-3">
@@ -74,6 +75,8 @@ const Login = () => {
             name="password"
             value={credentials.password}
             onChange={onChange}
+            minLength={5}
+            required
           />
         </div>
         <button type="submit" className="btn btn-primary">

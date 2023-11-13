@@ -29,7 +29,7 @@ const AddNote = () => {
   return (
     <div>
       <h2>Add a note</h2>
-      <form className="my-3">
+      <form className="my-3" onSubmit={handleAddNote}>
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
             Title
@@ -41,6 +41,8 @@ const AddNote = () => {
             name="title"
             value={note.title}
             onChange={onChange}
+            minLength={5}
+            required
           />
         </div>
         <div className="mb-3">
@@ -54,6 +56,8 @@ const AddNote = () => {
             name="description"
             value={note.description}
             onChange={onChange}
+            minLength={5}
+            required
           />
         </div>
         <div className="mb-3">
@@ -67,6 +71,8 @@ const AddNote = () => {
             name="tag"
             value={note.tag}
             onChange={onChange}
+            minLength={5}
+            required
           />
         </div>
         <button
@@ -77,7 +83,6 @@ const AddNote = () => {
             note.description.length < 5 ||
             note.tag.length < 5
           }
-          onClick={handleAddNote}
         >
           Add a Note
         </button>
