@@ -2,9 +2,11 @@ import { useContext, useEffect, useRef, useState } from "react";
 import noteContext from "../context/note/noteContext";
 import NoteItem from "./NoteItem";
 import AddNote from "./AddNote";
+import { useNavigate } from "react-router-dom";
 
 const Note = (props) => {
   const { showAlert } = props;
+  let navigate = useNavigate();
 
   const notesContext = useContext(noteContext);
   const { notes, getAllNotes, editNote } = notesContext;
@@ -17,7 +19,14 @@ const Note = (props) => {
   });
 
   useEffect(() => {
-    getAllNotes();
+    async function fetchData() {
+      if (localStorage.getItem("access_token")) {
+        await getAllNotes();
+      } else {
+        navigate("/login");
+      }
+    }
+    fetchData();
     //eslint-disable-next-line
   }, []);
 
@@ -163,7 +172,10 @@ const Note = (props) => {
 
       <div className="row my-3">
         <h2>Your Notes</h2>
-        {notes.length &&
+        {notes.length === 0 && (
+          <div className="container mx-2">No notes to display</div>
+        )}
+        {notes.length > 0 &&
           notes.map((note, index) => {
             return (
               <NoteItem

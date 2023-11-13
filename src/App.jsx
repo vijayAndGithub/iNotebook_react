@@ -29,6 +29,7 @@ function App() {
         <div className="container my-3">
           <Routes>
             <Route exact path="/" element={<Home showAlert={showAlert} />} />
+            <Route exact path="/about" element={<About />} />
             <Route
               exact
               path="/login"
@@ -39,7 +40,6 @@ function App() {
               path="/signup"
               element={<Signup showAlert={showAlert} />}
             />
-            <Route exact path="/about" element={<About />} />
           </Routes>
         </div>
       </NoteState>

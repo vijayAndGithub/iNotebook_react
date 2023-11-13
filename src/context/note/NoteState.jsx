@@ -9,26 +9,28 @@ const NoteState = (props) => {
   //0.Get all notes
 
   const getAllNotes = async () => {
-    const authToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0OTVlOTAzNjcxYmFmOTUzNTg4N2UzIn0sImlhdCI6MTY5OTgxMTUxMH0.ytqs3_IFLPBp42Ygae6bIpdDQGDGDC8bYvg_mbXFWQ0";
+    const access_token = localStorage.getItem("access_token");
     const url = `${envVars.apiUrl}/api/v1/notes`;
+    console.log(`Bearer ${access_token}`);
     const response = await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${authToken}`,
+        Authorization: `Bearer ${access_token}`,
       },
     });
     let resData = await response.json();
-    console.log(resData);
+    console.log("resData==>", resData.data);
+    console.log(notes.length);
     //Client
     setNotes(resData.data);
+    console.log("resData==>", resData.data);
+    console.log(notes.length);
   };
 
   //1.Add a note
   const addNote = async (note) => {
-    const authToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0OTVlOTAzNjcxYmFmOTUzNTg4N2UzIn0sImlhdCI6MTY5OTgxMTUxMH0.ytqs3_IFLPBp42Ygae6bIpdDQGDGDC8bYvg_mbXFWQ0";
+    const access_token = localStorage.getItem("access_token");
     const url = `${envVars.apiUrl}/api/v1/notes`;
     const noteData = {
       title: note.title,
@@ -39,7 +41,7 @@ const NoteState = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${authToken}`,
+        Authorization: `Bearer ${access_token}`,
       },
       body: JSON.stringify(noteData), // body data type must match "Content-Type" header
     });
@@ -52,8 +54,7 @@ const NoteState = (props) => {
 
   //2.Edit a note
   const editNote = async (note) => {
-    const authToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0OTVlOTAzNjcxYmFmOTUzNTg4N2UzIn0sImlhdCI6MTY5OTgxMTUxMH0.ytqs3_IFLPBp42Ygae6bIpdDQGDGDC8bYvg_mbXFWQ0";
+    const access_token = localStorage.getItem("access_token");
     const url = `${envVars.apiUrl}/api/v1/notes/${note._id}`;
     const noteData = {};
     if (note.title) {
@@ -70,7 +71,7 @@ const NoteState = (props) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${authToken}`,
+        Authorization: `Bearer ${access_token}`,
       },
       body: JSON.stringify(noteData), // body data type must match "Content-Type" header
     });
@@ -92,14 +93,13 @@ const NoteState = (props) => {
 
   //3.Delete a note
   const deleteNote = async (noteId) => {
-    const authToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0OTVlOTAzNjcxYmFmOTUzNTg4N2UzIn0sImlhdCI6MTY5OTgxMTUxMH0.ytqs3_IFLPBp42Ygae6bIpdDQGDGDC8bYvg_mbXFWQ0";
+    const access_token = localStorage.getItem("access_token");
     const url = `${envVars.apiUrl}/api/v1/notes/${noteId}`;
     const response = await fetch(url, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${authToken}`,
+        Authorization: `Bearer ${access_token}`,
       },
     });
     const resData = await response.json();

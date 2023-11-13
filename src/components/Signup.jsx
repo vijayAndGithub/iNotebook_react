@@ -58,7 +58,8 @@ const Signup = (props) => {
   };
   return (
     <div className="container">
-      <form onSubmit={handleSubmit}>
+      <h1>Signup - iNotebook</h1>
+      <form className="my-4" onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
             Name
