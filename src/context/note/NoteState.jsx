@@ -80,7 +80,6 @@ const NoteState = (props) => {
     //Client
     const updatedNotes = notes.map((element) => {
       if (element._id === note._id) {
-        console.log("inside front edit match");
         element.title = note.title;
         element.description = note.description;
         element.tag = note.tag;

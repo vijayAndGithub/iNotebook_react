@@ -14,14 +14,14 @@ const NoteItem = (props) => {
             <h3 className="card-text">{note.title}</h3>
             <i
               className="fa-solid fa-trash mx-2"
-              onClick={() => {
-                deleteNote(note._id);
+              onClick={async () => {
+                await deleteNote(note._id);
               }}
             ></i>
             <i
               className="fa-solid fa-pen-to-square mx-2"
-              onClick={() => {
-                updateNote(note);
+              onClick={async () => {
+                await updateNote(note);
               }}
             ></i>
           </div>

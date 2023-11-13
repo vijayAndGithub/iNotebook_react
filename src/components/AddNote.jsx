@@ -11,9 +11,14 @@ const AddNote = () => {
     tag: "",
   });
 
-  const handleAddNote = (e) => {
+  const handleAddNote = async (e) => {
     e.preventDefault();
-    addNote(note);
+    await addNote(note);
+    setNote({
+      title: "",
+      description: "",
+      tag: "",
+    });
   };
   const onChange = (e) => {
     setNote({
@@ -34,6 +39,7 @@ const AddNote = () => {
             className="form-control"
             id="title"
             name="title"
+            value={note.title}
             onChange={onChange}
           />
         </div>
@@ -46,6 +52,7 @@ const AddNote = () => {
             className="form-control"
             id="description"
             name="description"
+            value={note.description}
             onChange={onChange}
           />
         </div>
@@ -58,12 +65,18 @@ const AddNote = () => {
             className="form-control"
             id="tag"
             name="tag"
+            value={note.tag}
             onChange={onChange}
           />
         </div>
         <button
           type="submit"
           className="btn btn-primary"
+          disabled={
+            note.title.length < 5 ||
+            note.description.length < 5 ||
+            note.tag.length < 5
+          }
           onClick={handleAddNote}
         >
           Add a Note
